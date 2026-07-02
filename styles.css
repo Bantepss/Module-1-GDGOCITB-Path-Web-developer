@@ -488,7 +488,7 @@ p {
 /* --- Skills --- */
 .skill-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   gap: var(--space-5);
   list-style: none;
   padding: 0;
@@ -700,5 +700,35 @@ p {
   .skill-card,
   .footer__link {
     transition: none;
+  }
+}
+
+/* ==========================================================================
+   7. MEDIA QUERIES  (mobile-first: base = mobile, min-width ke atas)
+   ========================================================================== */
+
+/* Header dapat menata ulang (brand di atas, nav di bawah) pada layar sempit */
+.nav-wrap {
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .nav {
+    gap: var(--space-5);
+  }
+  .nav__list {
+    gap: var(--space-2);
+  }
+}
+
+@media (min-width: 900px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    column-gap: var(--space-8);
+  }
+  .footer__note {
+    grid-column: 1 / -1;
   }
 }
