@@ -87,8 +87,52 @@
 }
 
 /* ==========================================================================
-   2. THEME OVERRIDES  (html.light) — diisi pada fase tema (Bonus 1)
+   2. THEME OVERRIDES  (html.light) — dark-first, light sebagai tema kedua
    ========================================================================== */
+html.light {
+  color-scheme: light;
+
+  --color-bg: #f6f5f1;
+  --color-bg-elev: #efeee7;
+  --color-surface: #ffffff;
+  --color-surface-2: #faf9f4;
+  --color-border: rgba(20, 18, 12, 0.1);
+  --color-border-strong: rgba(20, 18, 12, 0.18);
+  --color-text: #17161d;
+  --color-text-muted: #55535f;
+  --color-text-faint: #86838f;
+  --color-accent: #d99414;        /* emas lebih pekat agar kontras di latar terang */
+  --color-accent-strong: #b97d0a;
+  --color-accent-text: #8a5d00;   /* aksen sebagai teks di atas latar terang */
+  --color-on-accent: #1a1206;
+
+  --glow-core: rgba(217, 148, 20, 0.16);
+  --glow-edge: rgba(224, 108, 60, 0.12);
+  --glow-ambient: rgba(217, 148, 20, 0.05);
+  --grid-line: rgba(20, 18, 12, 0.04);
+
+  --shadow-sm: 0 1px 2px rgba(20, 18, 12, 0.08);
+  --shadow-md: 0 10px 30px -14px rgba(20, 18, 12, 0.18),
+    0 2px 8px -3px rgba(20, 18, 12, 0.12);
+  --shadow-lg: 0 30px 60px -24px rgba(20, 18, 12, 0.22);
+  --shadow-accent: 0 12px 40px -16px rgba(217, 148, 20, 0.3);
+}
+
+/* Pertukaran ikon toggle sesuai tema aktif */
+html.light .theme-toggle__icon--moon {
+  display: none;
+}
+
+html.light .theme-toggle__icon--sun {
+  display: block;
+}
+
+/* Transisi halus saat pergantian tema (Bonus 1) */
+body,
+.site-header {
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
 
 /* ==========================================================================
    3. RESET & BASE

@@ -16,6 +16,16 @@
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a0f'/%3E%3Ctext x='16' y='22' font-size='18' font-family='monospace' font-weight='700' text-anchor='middle' fill='%23f0b543'%3EF%3C/text%3E%3C/svg%3E"
   />
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Terapkan preferensi tema tersimpan sebelum paint (hindari flash tema salah)
+    (function () {
+      try {
+        if (localStorage.getItem("theme") === "light") {
+          document.documentElement.classList.add("light");
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Lewati ke konten utama</a>
@@ -179,5 +189,35 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    // Toggle tema gelap/terang via class pada <html> + simpan preferensi
+    (function () {
+      var root = document.documentElement;
+      var btn = document.querySelector(".theme-toggle");
+      if (!btn) return;
+
+      function sync() {
+        var isLight = root.classList.contains("light");
+        btn.setAttribute("aria-pressed", String(isLight));
+        btn.setAttribute(
+          "aria-label",
+          isLight ? "Ganti ke tema gelap" : "Ganti ke tema terang"
+        );
+      }
+
+      sync();
+      btn.addEventListener("click", function () {
+        root.classList.toggle("light");
+        try {
+          localStorage.setItem(
+            "theme",
+            root.classList.contains("light") ? "light" : "dark"
+          );
+        } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
 </body>
 </html>
