@@ -613,3 +613,92 @@ p {
   font-size: 0.85rem;
   color: var(--color-text-muted);
 }
+
+/* ==========================================================================
+   6. ANIMATIONS  (hanya transform & opacity — compositor-only)
+   ========================================================================== */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Entrance hero — staggered: kicker -> nama -> bio -> CTA -> meta */
+.hero__inner > * {
+  animation: rise var(--dur-slow) var(--ease) both;
+}
+.hero__inner > :nth-child(1) {
+  animation-delay: 0.05s;
+}
+.hero__inner > :nth-child(2) {
+  animation-delay: 0.15s;
+}
+.hero__inner > :nth-child(3) {
+  animation-delay: 0.28s;
+}
+.hero__inner > :nth-child(4) {
+  animation-delay: 0.4s;
+}
+.hero__inner > :nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* Nav link — underline slide via scaleX pada ::after */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: 0.3rem;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+.nav__link:hover::after,
+.nav__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Skill card — hover lift + shadow elevation */
+.skill-card {
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.skill-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   6b. REDUCED MOTION GUARD (menghormati prefers-reduced-motion: reduce)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero__inner > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  body,
+  .site-header,
+  .skip-link,
+  .nav__link,
+  .nav__link::after,
+  .theme-toggle,
+  .btn,
+  .skill-card,
+  .footer__link {
+    transition: none;
+  }
+}
