@@ -89,7 +89,7 @@
 /* ==========================================================================
    2. THEME OVERRIDES  (html.light) — dark-first, light sebagai tema kedua
    ========================================================================== */
-html.light {
+body.light {
   color-scheme: light;
 
   --color-bg: #f6f5f1;
@@ -119,11 +119,11 @@ html.light {
 }
 
 /* Pertukaran ikon toggle sesuai tema aktif */
-html.light .theme-toggle__icon--moon {
+body.light .theme-toggle__icon--moon {
   display: none;
 }
 
-html.light .theme-toggle__icon--sun {
+body.light .theme-toggle__icon--sun {
   display: block;
 }
 
