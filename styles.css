@@ -1,13 +1,15 @@
 /* ==========================================================================
-   Personal Landing Page — Farhan Izdiyad (GDG on Campus ITB, Module 1)
+   Portofolio — Farhan Izdiyad
+   Arah desain: quiet luxury editorial — serif Fraunces, espresso × champagne,
+   hairline rules, grain halus. Depth dari cahaya & tipografi, bukan berat aset.
    --------------------------------------------------------------------------
    1. DESIGN TOKENS   — :root variables (warna, spacing, typografi, radius)
-   2. THEME OVERRIDES — html.light (dark-first, light sebagai tema kedua)
+   2. THEME OVERRIDES — body.light (dark-first, light sebagai tema kedua)
    3. RESET & BASE    — box-sizing, margin reset, body defaults, focus-visible
    4. LAYOUT UTILITIES— .container (max-width + padding), section rhythm
-   5. COMPONENTS      — .site-header, .nav, .hero, .skill-card, .site-footer
+   5. COMPONENTS      — .site-header, .nav, .hero, .skill-row, .site-footer
    6. ANIMATIONS      — @keyframes + prefers-reduced-motion guard
-   7. MEDIA QUERIES   — mobile-first breakpoints (min-width: 640px, 900px)
+   7. MEDIA QUERIES   — mobile-first breakpoints (min-width: 640, 768, 900px)
    ========================================================================== */
 
 /* ==========================================================================
@@ -16,26 +18,26 @@
 :root {
   color-scheme: dark;
 
-  /* Palette — dark (default, dark-first) */
-  --color-bg: #0a0a0f;
-  --color-bg-elev: #0e0e16;
-  --color-surface: #14141d;
-  --color-surface-2: #1a1a26;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.16);
-  --color-text: #f2f2f7;
-  --color-text-muted: #a6a6b8;
-  --color-text-faint: #7a7a8c;
-  --color-accent: #f0b543;        /* aksen emas — glow, border, isi tombol */
-  --color-accent-strong: #f7c86a; /* varian hover */
-  --color-accent-text: #f4c463;   /* aksen sebagai teks/link (kontras aman) */
-  --color-on-accent: #14100a;     /* teks di atas permukaan beraksen */
+  /* Palette — espresso × champagne (default, dark-first) */
+  --color-bg: #0c0a07;
+  --color-bg-elev: #12100b;
+  --color-surface: #171410;
+  --color-surface-2: #1d1913;
+  --color-border: rgba(216, 184, 120, 0.14);
+  --color-border-strong: rgba(216, 184, 120, 0.34);
+  --color-text: #f3ede1;
+  --color-text-muted: #b5ab97;
+  --color-text-faint: #8a8271;
+  --color-accent: #d8b878;        /* champagne — isi tombol, garis, glow */
+  --color-accent-strong: #e8cf9d; /* varian hover */
+  --color-accent-text: #dcbf85;   /* aksen sebagai teks (kontras aman) */
+  --color-on-accent: #191307;     /* teks di atas permukaan champagne */
 
-  /* Aurora & ambient (hero) */
-  --glow-core: rgba(240, 181, 67, 0.30);
-  --glow-edge: rgba(224, 108, 60, 0.20);
-  --glow-ambient: rgba(240, 181, 67, 0.06);
-  --grid-line: rgba(255, 255, 255, 0.035);
+  /* Cahaya ambient (hero & footer) */
+  --glow-core: rgba(216, 184, 120, 0.20);
+  --glow-edge: rgba(170, 110, 60, 0.14);
+  --glow-ambient: rgba(216, 184, 120, 0.05);
+  --grid-line: rgba(216, 184, 120, 0.045);
 
   /* Spacing scale (basis 4px) */
   --space-1: 0.25rem;
@@ -46,76 +48,62 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
-  --space-section: clamp(4rem, 10vw, 8rem);
+  --space-section: clamp(4.5rem, 11vw, 9rem);
 
-  /* Typografi */
+  /* Typografi — serif display + sans body */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas,
     "Liberation Mono", Menlo, monospace;
-  --fs-hero: clamp(2.75rem, 9vw, 5.5rem);
-  --fs-h2: clamp(1.9rem, 4.5vw, 3rem);
-  --fs-h3: 1.2rem;
+  --fs-hero: clamp(3.25rem, 12vw, 7.5rem);
+  --fs-h2: clamp(2.1rem, 5.5vw, 3.5rem);
+  --fs-h3: clamp(1.35rem, 2.5vw, 1.8rem);
   --fs-body: clamp(1rem, 0.96rem + 0.3vw, 1.125rem);
-  --fs-kicker: 0.78rem;
-  --lh-tight: 1.05;
-  --lh-body: 1.65;
+  --fs-kicker: 0.74rem;
+  --lh-tight: 1.02;
+  --lh-body: 1.7;
 
-  /* Radius */
-  --radius-sm: 0.5rem;
-  --radius: 0.9rem;
-  --radius-lg: 1.4rem;
+  /* Radius — tegas & minimal (couture) */
+  --radius-sm: 2px;
+  --radius: 4px;
   --radius-pill: 999px;
 
-  /* Elevation (multi-layer shadow) */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 10px 30px -12px rgba(0, 0, 0, 0.6),
-    0 2px 8px -2px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, 0.7),
-    0 8px 20px -8px rgba(0, 0, 0, 0.5);
-  --shadow-accent: 0 12px 40px -14px rgba(240, 181, 67, 0.35);
-
   /* Layout */
-  --container-max: 72rem;
+  --container-max: 70rem;
   --container-pad: clamp(1.25rem, 5vw, 2.5rem);
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 160ms;
-  --dur: 280ms;
-  --dur-slow: 600ms;
+  --dur: 300ms;
+  --dur-slow: 700ms;
 }
 
 /* ==========================================================================
-   2. THEME OVERRIDES  (html.light) — dark-first, light sebagai tema kedua
+   2. THEME OVERRIDES  (body.light) — kertas gading × emas antik
    ========================================================================== */
 body.light {
   color-scheme: light;
 
-  --color-bg: #f6f5f1;
-  --color-bg-elev: #efeee7;
-  --color-surface: #ffffff;
-  --color-surface-2: #faf9f4;
-  --color-border: rgba(20, 18, 12, 0.1);
-  --color-border-strong: rgba(20, 18, 12, 0.18);
-  --color-text: #17161d;
-  --color-text-muted: #55535f;
-  --color-text-faint: #86838f;
-  --color-accent: #d99414;        /* emas lebih pekat agar kontras di latar terang */
-  --color-accent-strong: #b97d0a;
-  --color-accent-text: #8a5d00;   /* aksen sebagai teks di atas latar terang */
-  --color-on-accent: #1a1206;
+  --color-bg: #f3efe5;
+  --color-bg-elev: #ece7d8;
+  --color-surface: #faf7f0;
+  --color-surface-2: #f0ebdd;
+  --color-border: rgba(60, 48, 25, 0.16);
+  --color-border-strong: rgba(60, 48, 25, 0.34);
+  --color-text: #211c12;
+  --color-text-muted: #5d564a;
+  --color-text-faint: #6e6657;
+  --color-accent: #b98a2e;        /* emas antik — cukup pekat untuk latar terang */
+  --color-accent-strong: #a07423;
+  --color-accent-text: #7d5c14;   /* aksen sebagai teks di atas gading */
+  --color-on-accent: #201607;
 
-  --glow-core: rgba(217, 148, 20, 0.16);
-  --glow-edge: rgba(224, 108, 60, 0.12);
-  --glow-ambient: rgba(217, 148, 20, 0.05);
-  --grid-line: rgba(20, 18, 12, 0.04);
-
-  --shadow-sm: 0 1px 2px rgba(20, 18, 12, 0.08);
-  --shadow-md: 0 10px 30px -14px rgba(20, 18, 12, 0.18),
-    0 2px 8px -3px rgba(20, 18, 12, 0.12);
-  --shadow-lg: 0 30px 60px -24px rgba(20, 18, 12, 0.22);
-  --shadow-accent: 0 12px 40px -16px rgba(217, 148, 20, 0.3);
+  --glow-core: rgba(185, 138, 46, 0.14);
+  --glow-edge: rgba(170, 110, 60, 0.10);
+  --glow-ambient: rgba(185, 138, 46, 0.06);
+  --grid-line: rgba(60, 48, 25, 0.05);
 }
 
 /* Pertukaran ikon toggle sesuai tema aktif */
@@ -165,7 +153,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Lapisan latar ambient (grid halus + vignette) — pure CSS, 0 request */
+/* Lapisan latar ambient (grid emas samar + vignette) — pure CSS, 0 request */
 body::before {
   content: "";
   position: fixed;
@@ -174,9 +162,20 @@ body::before {
   pointer-events: none;
   background:
     radial-gradient(120% 80% at 50% -10%, var(--glow-ambient), transparent 60%),
-    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 100% 4rem,
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 4rem 100%,
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 100% 5rem,
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 5rem 100%,
     var(--color-bg);
+}
+
+/* Grain film halus di atas segalanya — tekstur "mahal" tanpa request */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 img,
@@ -193,10 +192,19 @@ a {
 h1,
 h2,
 h3 {
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
   line-height: var(--lh-tight);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   text-wrap: balance;
+}
+
+/* Kata beraksen di judul — italic champagne, ciri khas editorial */
+h1 em,
+h2 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-accent-text);
 }
 
 p {
@@ -206,7 +214,7 @@ p {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 :focus:not(:focus-visible) {
@@ -249,6 +257,12 @@ p {
   padding-block: var(--space-section);
 }
 
+/* Ruang aman di bawah header sticky saat lompat via anchor */
+section[id],
+footer[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 .section__head {
   max-width: 46rem;
   margin-bottom: var(--space-7);
@@ -257,12 +271,19 @@ p {
 .kicker {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   font-family: var(--font-mono);
   font-size: var(--fs-kicker);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-text-muted);
+}
+
+.kicker::before {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-accent);
 }
 
 .kicker__num {
@@ -270,12 +291,12 @@ p {
 }
 
 .section__title {
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
   font-size: var(--fs-h2);
 }
 
 .section__lead {
-  max-width: 42rem;
+  max-width: 40rem;
   margin-top: var(--space-4);
   color: var(--color-text-muted);
 }
@@ -290,7 +311,7 @@ p {
   top: 0;
   z-index: 50;
   background: var(--color-bg);
-  background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+  background: color-mix(in srgb, var(--color-bg) 78%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
@@ -298,34 +319,34 @@ p {
 
 .nav-wrap {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
+  row-gap: var(--space-2);
   padding-block: var(--space-4);
 }
 
 .brand {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-3);
-  font-weight: 700;
 }
 
-.brand__mark {
-  display: grid;
-  place-items: center;
-  width: 2.1rem;
-  height: 2.1rem;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--color-on-accent);
-  background: linear-gradient(135deg, var(--color-accent-strong), var(--color-accent));
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-accent);
+.brand__monogram {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-accent-text);
 }
 
 .brand__name {
-  font-size: 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .nav {
@@ -346,7 +367,10 @@ p {
   position: relative;
   display: inline-block;
   padding: var(--space-2) var(--space-3);
-  font-size: 0.95rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
   transition: color var(--dur) var(--ease);
 }
@@ -362,8 +386,8 @@ p {
   width: 2.6rem;
   height: 2.6rem;
   color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: transparent;
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-pill);
   cursor: pointer;
   transition: color var(--dur) var(--ease), background var(--dur) var(--ease),
@@ -372,13 +396,13 @@ p {
 
 .theme-toggle:hover {
   color: var(--color-accent-text);
-  border-color: var(--color-border-strong);
+  border-color: var(--color-accent);
 }
 
 .theme-toggle__icon {
   grid-area: 1 / 1;
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 /* Tema gelap (default): tampilkan bulan, sembunyikan matahari */
@@ -390,47 +414,85 @@ p {
 .hero {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(4rem, 12vw, 7.5rem);
+  padding-top: clamp(5rem, 14vw, 9rem);
   padding-bottom: var(--space-section);
 }
 
 .hero__glow {
   position: absolute;
   z-index: 0;
-  top: -25%;
+  top: -30%;
   left: 50%;
-  width: min(70rem, 130%);
+  width: min(72rem, 135%);
   aspect-ratio: 1 / 1;
   transform: translateX(-50%);
   pointer-events: none;
   background:
-    radial-gradient(40% 40% at 35% 38%, var(--glow-core), transparent 70%),
-    radial-gradient(42% 42% at 66% 60%, var(--glow-edge), transparent 72%);
-  filter: blur(6px);
+    radial-gradient(38% 38% at 34% 40%, var(--glow-core), transparent 70%),
+    radial-gradient(42% 42% at 68% 58%, var(--glow-edge), transparent 72%);
+  filter: blur(8px);
+}
+
+/* Monogram outline raksasa — watermark couture, desktop saja */
+.hero__watermark {
+  display: none;
+  position: absolute;
+  z-index: 0;
+  right: -0.06em;
+  bottom: -0.28em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(18rem, 34vw, 30rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  pointer-events: none;
+  user-select: none;
 }
 
 .hero__inner {
   position: relative;
   z-index: 1;
-  max-width: 52rem;
+  max-width: 54rem;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-kicker);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.hero__eyebrow::before {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-accent);
 }
 
 .hero__title {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
   font-size: var(--fs-hero);
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
+}
+
+.hero__title em {
+  display: block;
 }
 
 .hero__bio {
-  max-width: 40rem;
-  margin-top: var(--space-5);
-  font-size: clamp(1.05rem, 1rem + 0.5vw, 1.3rem);
+  max-width: 38rem;
+  margin-top: var(--space-6);
+  font-size: clamp(1.05rem, 1rem + 0.5vw, 1.28rem);
   color: var(--color-text-muted);
 }
 
 .hero__bio em {
-  font-style: normal;
-  font-weight: 600;
+  font-style: italic;
   color: var(--color-accent-text);
 }
 
@@ -438,46 +500,55 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-6);
+  margin-top: var(--space-7);
 }
 
 .hero__meta {
-  margin-top: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   color: var(--color-text-muted);
+}
+
+.hero__meta-mark {
+  color: var(--color-accent-text);
 }
 
 /* --- Tombol --- */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
-  padding: 0.85rem 1.4rem;
+  padding: 0.95rem 1.7rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  font-size: 0.98rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   border: 1px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: color var(--dur) var(--ease), background var(--dur) var(--ease),
-    border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    border-color var(--dur) var(--ease);
 }
 
 .btn--primary {
   color: var(--color-on-accent);
-  background: linear-gradient(135deg, var(--color-accent-strong), var(--color-accent));
-  box-shadow: var(--shadow-accent);
+  background: var(--color-accent);
 }
 
 .btn--primary:hover {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  background: var(--color-accent-strong);
 }
 
 .btn--ghost {
   color: var(--color-text);
-  background: var(--color-surface);
-  border-color: var(--color-border);
+  background: transparent;
+  border-color: var(--color-border-strong);
 }
 
 .btn--ghost:hover {
@@ -485,129 +556,151 @@ p {
   border-color: var(--color-accent);
 }
 
-/* --- Skills --- */
-.skill-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: var(--space-5);
+/* --- Skills: index editorial bergaris rambut --- */
+.skill-index {
   list-style: none;
+  margin: 0;
   padding: 0;
+  border-top: 1px solid var(--color-border);
 }
 
-.skill-card {
+.skill-row {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-6);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-surface-2) 55%, transparent),
-    var(--color-surface)
-  );
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  padding-block: var(--space-6);
+  padding-inline: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* garis highlight tipis di sisi atas (depth) */
-.skill-card::before {
+/* Wash champagne samar saat hover */
+.skill-row::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-border-strong), transparent);
+  inset: 0;
+  background: color-mix(in srgb, var(--color-accent) 5%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease);
 }
 
-.skill-card__icon {
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
+.skill-row:hover::before {
+  opacity: 1;
+}
+
+.skill-row__num {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--color-accent-text);
-  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
-  border-radius: var(--radius);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-faint);
+  transition: color var(--dur) var(--ease);
 }
 
-.skill-card__title {
+.skill-row:hover .skill-row__num {
+  color: var(--color-accent-text);
+}
+
+.skill-row__body {
+  transition: transform var(--dur) var(--ease);
+}
+
+.skill-row:hover .skill-row__body {
+  transform: translateX(8px);
+}
+
+.skill-row__title {
   font-size: var(--fs-h3);
 }
 
-.skill-card__desc {
+.skill-row__desc {
+  max-width: 36rem;
+  margin-top: var(--space-2);
   font-size: 0.98rem;
   color: var(--color-text-muted);
 }
 
-.skill-card__tag {
-  align-self: flex-start;
-  margin-top: auto;
-  padding: 0.3rem 0.7rem;
+.skill-row__tag {
+  justify-self: start;
+  align-self: start;
+  padding: 0.35rem 0.8rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  background: var(--color-bg-elev);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
 }
 
 /* --- Footer / kontak --- */
 .site-footer {
   border-top: 1px solid var(--color-border);
   background:
-    radial-gradient(120% 60% at 50% 120%, var(--glow-ambient), transparent 60%),
+    radial-gradient(120% 70% at 50% 130%, var(--glow-ambient), transparent 60%),
     var(--color-bg-elev);
 }
 
-.footer__inner {
-  display: grid;
-  gap: var(--space-6);
+.footer__mail {
+  display: inline-block;
+  margin-top: var(--space-7);
+  padding-bottom: 0.12em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 4.8vw, 3.2rem);
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--color-border-strong);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.footer__mail:hover,
+.footer__mail:focus-visible {
+  color: var(--color-accent-text);
+  border-color: var(--color-accent);
 }
 
 .footer__links {
-  display: grid;
-  gap: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
   list-style: none;
   padding: 0;
 }
 
 .footer__link {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-4) var(--space-5);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  transition: color var(--dur) var(--ease), background var(--dur) var(--ease),
-    border-color var(--dur) var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
 .footer__link:hover,
 .footer__link:focus-visible {
-  background: var(--color-surface-2);
-  border-color: var(--color-accent);
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
 }
 
-.footer__link-label {
-  font-weight: 600;
+.footer__link-arrow {
+  color: var(--color-accent-text);
+  transition: transform var(--dur) var(--ease);
 }
 
-.footer__link-meta {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
+.footer__link:hover .footer__link-arrow {
+  transform: translate(2px, -2px);
 }
 
 .footer__note {
-  margin-top: var(--space-5);
+  margin-top: var(--space-8);
   padding-top: var(--space-5);
   border-top: 1px solid var(--color-border);
   font-size: 0.85rem;
@@ -628,7 +721,16 @@ p {
   }
 }
 
-/* Entrance hero — staggered: kicker -> nama -> bio -> CTA -> meta */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Entrance hero — staggered: eyebrow -> nama -> bio -> CTA -> meta */
 .hero__inner > * {
   animation: rise var(--dur-slow) var(--ease) both;
 }
@@ -636,16 +738,20 @@ p {
   animation-delay: 0.05s;
 }
 .hero__inner > :nth-child(2) {
-  animation-delay: 0.15s;
+  animation-delay: 0.16s;
 }
 .hero__inner > :nth-child(3) {
-  animation-delay: 0.28s;
+  animation-delay: 0.3s;
 }
 .hero__inner > :nth-child(4) {
-  animation-delay: 0.4s;
+  animation-delay: 0.42s;
 }
 .hero__inner > :nth-child(5) {
-  animation-delay: 0.5s;
+  animation-delay: 0.52s;
+}
+
+.hero__watermark {
+  animation: fade 1.2s var(--ease) 0.5s both;
 }
 
 /* Nav link — underline slide via scaleX pada ::after */
@@ -654,28 +760,17 @@ p {
   position: absolute;
   left: var(--space-3);
   right: var(--space-3);
-  bottom: 0.3rem;
-  height: 2px;
+  bottom: 0.35rem;
+  height: 1px;
   background: var(--color-accent);
-  border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--dur) var(--ease);
 }
+
 .nav__link:hover::after,
 .nav__link:focus-visible::after {
   transform: scaleX(1);
-}
-
-/* Skill card — hover lift + shadow elevation */
-.skill-card {
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
-    border-color var(--dur) var(--ease);
-}
-.skill-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-lg);
 }
 
 /* ==========================================================================
@@ -685,7 +780,8 @@ p {
   html {
     scroll-behavior: auto;
   }
-  .hero__inner > * {
+  .hero__inner > *,
+  .hero__watermark {
     animation: none;
     opacity: 1;
     transform: none;
@@ -697,22 +793,22 @@ p {
   .nav__link::after,
   .theme-toggle,
   .btn,
-  .skill-card,
-  .footer__link {
+  .skill-row::before,
+  .skill-row__num,
+  .skill-row__body,
+  .footer__mail,
+  .footer__link,
+  .footer__link-arrow {
     transition: none;
+  }
+  .skill-row:hover .skill-row__body {
+    transform: none;
   }
 }
 
 /* ==========================================================================
    7. MEDIA QUERIES  (mobile-first: base = mobile, min-width ke atas)
    ========================================================================== */
-
-/* Header dapat menata ulang (brand di atas, nav di bawah) pada layar sempit */
-.nav-wrap {
-  flex-wrap: wrap;
-  row-gap: var(--space-2);
-}
-
 @media (min-width: 640px) {
   .nav {
     gap: var(--space-5);
@@ -722,13 +818,23 @@ p {
   }
 }
 
-@media (min-width: 900px) {
-  .footer__inner {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 768px) {
+  /* Baris skill menjadi tiga kolom: nomor — isi — tag */
+  .skill-row {
+    grid-template-columns: 5.5rem 1fr auto;
+    column-gap: var(--space-6);
     align-items: start;
-    column-gap: var(--space-8);
   }
-  .footer__note {
-    grid-column: 1 / -1;
+  .skill-row__num {
+    padding-top: 0.5em;
+  }
+  .skill-row__tag {
+    margin-top: 0.45em;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero__watermark {
+    display: block;
   }
 }
