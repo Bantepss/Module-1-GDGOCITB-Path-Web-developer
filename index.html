@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farhan Izdiyad — Mahasiswa STI ITB | Personal Landing Page</title>
+  <meta
+    name="description"
+    content="Landing page personal Farhan Izdiyad, mahasiswa Sistem dan Teknologi Informasi ITB. Dibangun dengan HTML & CSS untuk GDG on Campus ITB Hands-On Module 1."
+  />
+  <meta name="author" content="Farhan Izdiyad" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a0f'/%3E%3Ctext x='16' y='22' font-size='18' font-family='monospace' font-weight='700' text-anchor='middle' fill='%23f0b543'%3EF%3C/text%3E%3C/svg%3E"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#hero" aria-label="Farhan Izdiyad — kembali ke atas">
+        <span class="brand__mark" aria-hidden="true">FI</span>
+        <span class="brand__name">Farhan Izdiyad</span>
+      </a>
+
+      <nav class="nav" aria-label="Navigasi utama">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#hero">Beranda</a></li>
+          <li><a class="nav__link" href="#skills">Keahlian</a></li>
+          <li><a class="nav__link" href="#contact">Kontak</a></li>
+        </ul>
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-pressed="false"
+          aria-label="Ganti ke tema terang"
+        >
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" />
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="12" y1="2.5" x2="12" y2="5" />
+              <line x1="12" y1="19" x2="12" y2="21.5" />
+              <line x1="2.5" y1="12" x2="5" y2="12" />
+              <line x1="19" y1="12" x2="21.5" y2="12" />
+              <line x1="5.1" y1="5.1" x2="6.8" y2="6.8" />
+              <line x1="17.2" y1="17.2" x2="18.9" y2="18.9" />
+              <line x1="5.1" y1="18.9" x2="6.8" y2="17.2" />
+              <line x1="17.2" y1="6.8" x2="18.9" y2="5.1" />
+            </g>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="hero" class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <p class="kicker kicker--hero">GDG on Campus ITB · Hands-On Module 1</p>
+        <h1 class="hero__title">Farhan Izdiyad</h1>
+        <p class="hero__bio">
+          Mahasiswa Sistem dan Teknologi Informasi ITB yang sedang membangun
+          fondasi sebagai <em>web developer</em>. Halaman ini adalah langkah
+          pertama — dibangun murni dengan HTML &amp; CSS, satu commit dalam satu
+          waktu.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#skills">Lihat yang saya pelajari</a>
+          <a class="btn btn--ghost" href="#contact">Hubungi saya</a>
+        </div>
+        <p class="hero__meta">Sistem &amp; Teknologi Informasi · 18225074</p>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills">
+      <div class="container">
+        <header class="section__head">
+          <p class="kicker"><span class="kicker__num">01</span> Tech Stack</p>
+          <h2 class="section__title">Yang sedang saya pelajari</h2>
+          <p class="section__lead">
+            Lima teknologi yang saya rencanakan untuk dikuasai dalam perjalanan
+            menjadi full-stack developer.
+          </p>
+        </header>
+
+        <ul class="skill-grid" role="list">
+          <li class="skill-card">
+            <span class="skill-card__icon" aria-hidden="true">TS</span>
+            <h3 class="skill-card__title">TypeScript</h3>
+            <p class="skill-card__desc">
+              Menambahkan tipe statis ke JavaScript agar kode lebih aman dan
+              mudah dirawat saat proyek membesar.
+            </p>
+            <span class="skill-card__tag">Bahasa</span>
+          </li>
+          <li class="skill-card">
+            <span class="skill-card__icon" aria-hidden="true">TW</span>
+            <h3 class="skill-card__title">Tailwind CSS</h3>
+            <p class="skill-card__desc">
+              Framework utility-first untuk membangun antarmuka dengan cepat
+              tanpa meninggalkan HTML.
+            </p>
+            <span class="skill-card__tag">Styling</span>
+          </li>
+          <li class="skill-card">
+            <span class="skill-card__icon" aria-hidden="true">Nx</span>
+            <h3 class="skill-card__title">Next.js</h3>
+            <p class="skill-card__desc">
+              Framework React untuk rendering hybrid, routing, dan optimasi
+              performa siap produksi.
+            </p>
+            <span class="skill-card__tag">Framework</span>
+          </li>
+          <li class="skill-card">
+            <span class="skill-card__icon" aria-hidden="true">Sb</span>
+            <h3 class="skill-card__title">Supabase</h3>
+            <p class="skill-card__desc">
+              Backend open-source berbasis Postgres: database, autentikasi, dan
+              API instan dalam satu platform.
+            </p>
+            <span class="skill-card__tag">Backend</span>
+          </li>
+          <li class="skill-card">
+            <span class="skill-card__icon" aria-hidden="true">Nd</span>
+            <h3 class="skill-card__title">Node.js</h3>
+            <p class="skill-card__desc">
+              Runtime untuk menjalankan JavaScript di server, membangun API, dan
+              perkakas pengembangan.
+            </p>
+            <span class="skill-card__tag">Runtime</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="section site-footer">
+    <div class="container footer__inner">
+      <div class="footer__lead">
+        <p class="kicker"><span class="kicker__num">02</span> Kontak</p>
+        <h2 class="section__title">Mari terhubung</h2>
+        <p class="section__lead">
+          Punya pertanyaan, peluang kolaborasi, atau sekadar ingin menyapa?
+          Saluran saya selalu terbuka.
+        </p>
+      </div>
+
+      <ul class="footer__links" role="list">
+        <li>
+          <a class="footer__link" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+            <span class="footer__link-label">GitHub</span>
+            <span class="footer__link-meta" aria-hidden="true">@username</span>
+          </a>
+        </li>
+        <li>
+          <a class="footer__link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <span class="footer__link-label">LinkedIn</span>
+            <span class="footer__link-meta" aria-hidden="true">/in/username</span>
+          </a>
+        </li>
+        <li>
+          <a class="footer__link" href="mailto:farhanizdiyad2@gmail.com">
+            <span class="footer__link-label">Email</span>
+            <span class="footer__link-meta" aria-hidden="true">farhanizdiyad2@gmail.com</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="footer__note">
+        © 2026 Farhan Izdiyad · Dibuat dengan HTML &amp; CSS untuk GDG on Campus ITB
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
